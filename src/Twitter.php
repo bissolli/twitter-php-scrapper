@@ -55,7 +55,10 @@ class Twitter extends TwitterAbstract
             'followers_count' => $this->sanitizeNodeAttr($profileNav->find('.ProfileNav-item--followers .ProfileNav-value')[0], 'data-count'),
             'favorites_count' => $this->sanitizeNodeAttr($profileNav->find('.ProfileNav-item--favorites .ProfileNav-value')[0], 'data-count'),
             'lists_count' => $this->sanitizeNodeText($profileNav->find('.ProfileNav-item--lists .ProfileNav-value')[0], 0),
-            'is_verified' => count($this->domHtml->find('.ProfileHeaderCard-badges .Icon--verified')[0]) > 0,
+            'is_verified' =>
+                $this->domHtml->find('.ProfileHeaderCard-badges .Icon--verified')[0]
+                    ? count($this->domHtml->find('.ProfileHeaderCard-badges .Icon--verified')[0]) > 0
+                    : false,
         ]);
 
         $this->setProfile($account);
